@@ -4,9 +4,9 @@
 
 void FIR::managerlogin(int &flag) {
     string user, pswd;
-    cout << "ÇëÊäÈëÐÕÃû:";
+    cout << "è¯·è¾“å…¥å§“å:";
     cin >> user;
-    cout << "ÇëÊäÈëÃÜÂë:";
+    cout << "è¯·è¾“å…¥å¯†ç :";
     cin >> pswd;
     MYSQL_CONN mysql_conn;
     if (mysql_conn.connect()) {
@@ -18,18 +18,18 @@ void FIR::managerlogin(int &flag) {
             res = mysql_store_result(mysql);
             if (mysql_num_rows(res)) {
                 flag = 1;
-                cout << "µÇÂ¼³É¹¦" << endl;
+                cout << "ç™»å½•æˆåŠŸ" << endl;
             }
             else {
-                cout << "ÕËºÅ»òÃÜÂëÊäÈë´íÎó!";
+                cout << "è´¦å·æˆ–å¯†ç è¾“å…¥é”™è¯¯!";
             }
         }
         else {
-            cout << "²éÑ¯Ê§°Ü!";
+            cout << "æŸ¥è¯¢å¤±è´¥!";
         }
     }
     else {
-        cout << "Êý¾Ý¿âÁ¬½ÓÊ§°Ü!";
+        cout << "æ•°æ®åº“è¿žæŽ¥å¤±è´¥!";
     }
 }
 
@@ -41,13 +41,13 @@ MANAGER::MANAGER(string name) {
 bool MANAGER::studentExists(MYSQL* mysql, int s_id) {
     string check_query = "SELECT COUNT(*) FROM student WHERE s_id = " + to_string(s_id) + ";";
     if (mysql_query(mysql, check_query.c_str())) {
-        cerr << "¼ì²éÑ§Éú´æÔÚÊ±³ö´í£º " << mysql_error(mysql) << endl;
+        cerr << "æ£€æŸ¥å­¦ç”Ÿå­˜åœ¨æ—¶å‡ºé”™ï¼š " << mysql_error(mysql) << endl;
         return false; 
     }
 
     MYSQL_RES* result = mysql_store_result(mysql);
     if (!result) {
-        cerr << "»ñÈ¡½á¹û¼¯³ö´í£º " << mysql_error(mysql) << endl;
+        cerr << "èŽ·å–ç»“æžœé›†å‡ºé”™ï¼š " << mysql_error(mysql) << endl;
         return false; 
     }
 
@@ -62,13 +62,13 @@ bool MANAGER::studentExists(MYSQL* mysql, int s_id) {
 bool MANAGER::courseExists(MYSQL* mysql, int c_id) {
     string check_query = "SELECT COUNT(*) FROM course WHERE c_id = " + to_string(c_id) + ";";
     if (mysql_query(mysql, check_query.c_str())) {
-        cerr << "¼ì²é¿Î³Ì´æÔÚÊ±³ö´í£º " << mysql_error(mysql) << endl;
+        cerr << "æ£€æŸ¥è¯¾ç¨‹å­˜åœ¨æ—¶å‡ºé”™ï¼š " << mysql_error(mysql) << endl;
         return false;
     }
 
     MYSQL_RES* result = mysql_store_result(mysql);
     if (!result) {
-        cerr << "»ñÈ¡½á¹û¼¯³ö´í£º " << mysql_error(mysql) << endl;
+        cerr << "èŽ·å–ç»“æžœé›†å‡ºé”™ï¼š " << mysql_error(mysql) << endl;
         return false;
     }
 
@@ -83,27 +83,27 @@ bool MANAGER::courseExists(MYSQL* mysql, int c_id) {
 void MANAGER::add_student() {
     int s_id, s_age;
     string name,sex,s_class,s_phone,s_department,password;
-    cout << "ÇëÊäÈëÑ§ÉúÑ§ºÅ£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿå­¦å·ï¼š";
     cin >> s_id;
-    cout << "ÇëÊäÈëÑ§ÉúÐÕÃû£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿå§“åï¼š";
     cin >> name;
-    cout << "ÇëÊäÈëÑ§ÉúÐÔ±ð£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿæ€§åˆ«ï¼š";
     cin >> sex;
-    cout << "ÇëÊäÈëÑ§ÉúËùÔÚ°à¼¶£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿæ‰€åœ¨ç­çº§ï¼š";
     cin >> s_class;
-    cout << "ÇëÊäÈëÑ§ÉúÊÖ»úºÅ£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿæ‰‹æœºå·ï¼š";
     cin >> s_phone;
-    cout << "ÇëÊäÈëÑ§ÉúÄêÁä£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿå¹´é¾„ï¼š";
     cin >> s_age;
-    cout << "ÇëÊäÈëÑ§ÉúËùÔÚÏµ£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿæ‰€åœ¨ç³»ï¼š";
     cin >> s_department;
-    cout << "ÇëÊäÈëÑ§ÉúÃÜÂë£º";
+    cout << "è¯·è¾“å…¥å­¦ç”Ÿå¯†ç ï¼š";
     cin >> password;
     MYSQL_CONN mysql_conn;
     if (mysql_conn.connect()) {
         MYSQL* mysql = mysql_conn.getmysql();
     if (studentExists(mysql, s_id)) {
-        cerr << "´íÎó: Ñ§ÉúID " << s_id << " ÒÑ¾­´æÔÚ£¡" << endl;
+        cerr << "é”™è¯¯: å­¦ç”ŸID " << s_id << " å·²ç»å­˜åœ¨ï¼" << endl;
         return; 
     }
 
@@ -112,10 +112,10 @@ void MANAGER::add_student() {
         + to_string(s_id) + "','" + name + "','" + sex + "','" + s_class + "','" + s_phone + "','" + to_string(s_age) + "','" + s_department + "','" + password + "');";
 
     if (mysql_query(mysql, add_stu.c_str())) {
-        cerr << "´íÎó£º " << mysql_error(mysql) << endl;
+        cerr << "é”™è¯¯ï¼š " << mysql_error(mysql) << endl;
     }
     else {
-        cout << "Ñ§Éú¼ÇÂ¼Ìí¼Ó³É¹¦£¡" << endl;
+        cout << "å­¦ç”Ÿè®°å½•æ·»åŠ æˆåŠŸï¼" << endl;
         }
     }
 }
@@ -123,25 +123,25 @@ void MANAGER::add_student() {
 void MANAGER::add_course() {
     int c_id, c_hours, c_credit, c_term, c_nums;
     string c_name, c_character;
-    cout << "ÇëÊäÈë¿Î³ÌºÅ£º";
+    cout << "è¯·è¾“å…¥è¯¾ç¨‹å·ï¼š";
     cin >> c_id;
-    cout << "ÇëÊäÈë¿Î³ÌÃû£º";
+    cout << "è¯·è¾“å…¥è¯¾ç¨‹åï¼š";
     cin >> c_name;
-    cout << "ÇëÊäÈë¸Ã¿Î³ÌµÄÀàÐÍ£º";
+    cout << "è¯·è¾“å…¥è¯¥è¯¾ç¨‹çš„ç±»åž‹ï¼š";
     cin >> c_character;
-    cout << "ÇëÊäÈë¸Ã¿Î³ÌµÄÑ§Ê±£º";
+    cout << "è¯·è¾“å…¥è¯¥è¯¾ç¨‹çš„å­¦æ—¶ï¼š";
     cin >> c_hours;
-    cout << "ÇëÊäÈë¸Ã¿Î³ÌµÄÑ§·Ö£º";
+    cout << "è¯·è¾“å…¥è¯¥è¯¾ç¨‹çš„å­¦åˆ†ï¼š";
     cin >> c_credit;
-    cout << "ÇëÊäÈë¸Ã¿Î³Ì¹²ÓÐ¼¸¸öÑ§ÆÚ£º";
+    cout << "è¯·è¾“å…¥è¯¥è¯¾ç¨‹å…±æœ‰å‡ ä¸ªå­¦æœŸï¼š";
     cin >> c_term;
-    cout << "ÇëÊäÈë¸Ã¿Î³Ì×î´óÑ§ÉúÊýÁ¿£º";
+    cout << "è¯·è¾“å…¥è¯¥è¯¾ç¨‹æœ€å¤§å­¦ç”Ÿæ•°é‡ï¼š";
     cin >> c_nums;
     MYSQL_CONN mysql_conn;
     if (mysql_conn.connect()) {
         MYSQL* mysql = mysql_conn.getmysql();
     if (courseExists(mysql, c_id)) {
-        cerr << "´íÎó£º¿Î³ÌID" << c_id << "ÒÑ¾­´æÔÚ£¡" << endl;
+        cerr << "é”™è¯¯ï¼šè¯¾ç¨‹ID" << c_id << "å·²ç»å­˜åœ¨ï¼" << endl;
         return;
     }
 
@@ -149,17 +149,17 @@ void MANAGER::add_course() {
         + to_string(c_id) + "','" + c_name + "','" + c_character + "','" + to_string(c_hours) + "','" + to_string(c_credit) + "','" + to_string(c_term) + "','" + to_string(c_nums) + "');";
 
     if (mysql_query(mysql, add_cou.c_str())) {
-        cerr << "´íÎó£º " << mysql_error(mysql) << endl;
+        cerr << "é”™è¯¯ï¼š " << mysql_error(mysql) << endl;
     }
     else {
-        cout << "¿Î³Ì¼ÇÂ¼Ìí¼Ó³É¹¦£¡" << endl;
+        cout << "è¯¾ç¨‹è®°å½•æ·»åŠ æˆåŠŸï¼" << endl;
         }
     }
 }
 
 void MANAGER::select_course() {
     int c_id;
-    cout << "ÇëÊäÈëÄúÒª²éÑ¯µÄ¿Î³Ì±àºÅ£º";
+    cout << "è¯·è¾“å…¥æ‚¨è¦æŸ¥è¯¢çš„è¯¾ç¨‹ç¼–å·ï¼š";
     cin >> c_id;
 
     MYSQL_CONN mysql_conn;
@@ -173,32 +173,32 @@ void MANAGER::select_course() {
             if (res) {
                 MYSQL_ROW row = mysql_fetch_row(res);
                 if (row) {
-                    cout << "¿Î³Ì±àºÅ£º" << row[0] << endl;
-                    cout << "¿Î³ÌÃû³Æ£º" << row[1] << endl;
-                    cout << "¿Î³ÌÊôÐÔ£º" << row[2] << endl;
-                    cout << "¿Î³ÌÑ§Ê±£º" << row[3] << endl;
-                    cout << "¿Î³ÌÑ§·Ö£º" << row[4] << endl;
-                    cout << "¿Î³ÌÑ§ÆÚ£º" << row[5] << endl;
-                    cout << "¿Î³Ì×î´óÈËÊý£º" << row[6] << endl;
+                    cout << "è¯¾ç¨‹ç¼–å·ï¼š" << row[0] << endl;
+                    cout << "è¯¾ç¨‹åç§°ï¼š" << row[1] << endl;
+                    cout << "è¯¾ç¨‹å±žæ€§ï¼š" << row[2] << endl;
+                    cout << "è¯¾ç¨‹å­¦æ—¶ï¼š" << row[3] << endl;
+                    cout << "è¯¾ç¨‹å­¦åˆ†ï¼š" << row[4] << endl;
+                    cout << "è¯¾ç¨‹å­¦æœŸï¼š" << row[5] << endl;
+                    cout << "è¯¾ç¨‹æœ€å¤§äººæ•°ï¼š" << row[6] << endl;
                 }
                 else {
-                    cout << "Î´ÕÒµ½¿Î³ÌÐÅÏ¢" << endl;
+                    cout << "æœªæ‰¾åˆ°è¯¾ç¨‹ä¿¡æ¯" << endl;
                 }
                 mysql_free_result(res);
             }
             else {
-                cout << "²éÑ¯½á¹ûÎª¿Õ" << endl;
+                cout << "æŸ¥è¯¢ç»“æžœä¸ºç©º" << endl;
             }
         }
         else {
-            cout << "²éÑ¯Ê§°Ü" << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥" << endl;
         }
     }
 }
 
 void MANAGER::select_student() {
     string name;
-    cout << "ÇëÊäÈëÄúÒª²éÑ¯Ñ§ÉúµÄÐÕÃû£º";
+    cout << "è¯·è¾“å…¥æ‚¨è¦æŸ¥è¯¢å­¦ç”Ÿçš„å§“åï¼š";
     cin >> name;
 
     MYSQL_CONN mysql_conn;
@@ -212,26 +212,26 @@ void MANAGER::select_student() {
             if (res) {
                 MYSQL_ROW row = mysql_fetch_row(res);
                 if (row) {
-                    cout << "Ñ§ÉúÑ§ºÅ£º" << row[0] << endl;
-                    cout << "Ñ§ÉúÐÕÃû£º" << row[1] << endl;
-                    cout << "Ñ§ÉúÐÔ±ð£º" << row[2] << endl;
-                    cout << "Ñ§Éú°à¼¶£º" << row[3] << endl;
-                    cout << "Ñ§ÉúÊÖ»úºÅÂë£º" << row[4] << endl;
-                    cout << "Ñ§ÉúÄêÁä£º" << row[5] << endl;
-                    cout << "Ñ§ÉúËùÔÚÏµ£º" << row[6] << endl;
-                    cout << "Ñ§ÉúÃÜÂë£º" << row[6] << endl;
+                    cout << "å­¦ç”Ÿå­¦å·ï¼š" << row[0] << endl;
+                    cout << "å­¦ç”Ÿå§“åï¼š" << row[1] << endl;
+                    cout << "å­¦ç”Ÿæ€§åˆ«ï¼š" << row[2] << endl;
+                    cout << "å­¦ç”Ÿç­çº§ï¼š" << row[3] << endl;
+                    cout << "å­¦ç”Ÿæ‰‹æœºå·ç ï¼š" << row[4] << endl;
+                    cout << "å­¦ç”Ÿå¹´é¾„ï¼š" << row[5] << endl;
+                    cout << "å­¦ç”Ÿæ‰€åœ¨ç³»ï¼š" << row[6] << endl;
+                    cout << "å­¦ç”Ÿå¯†ç ï¼š" << row[6] << endl;
                 }
                 else {
-                    cout << "Î´ÕÒµ½Ñ§ÉúÐÅÏ¢" << endl;
+                    cout << "æœªæ‰¾åˆ°å­¦ç”Ÿä¿¡æ¯" << endl;
                 }
                 mysql_free_result(res);
             }
             else {
-                cout << "²éÑ¯½á¹ûÎª¿Õ" << endl;
+                cout << "æŸ¥è¯¢ç»“æžœä¸ºç©º" << endl;
             }
         }
         else {
-            cout << "²éÑ¯Ê§°Ü" << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥" << endl;
             }
         }
     }
@@ -247,23 +247,23 @@ void MANAGER::showall_course() {
             res = mysql_store_result(mysql);
             if (res) {
                 while (MYSQL_ROW row = mysql_fetch_row(res)) {
-                    cout << "¿Î³Ì±àºÅ£º" << row[0] << endl;
-                    cout << "¿Î³ÌÃû³Æ£º" << row[1] << endl;
-                    cout << "¿Î³ÌÊôÐÔ£º" << row[2] << endl;
-                    cout << "¿Î³ÌÑ§Ê±£º" << row[3] << endl;
-                    cout << "¿Î³ÌÑ§·Ö£º" << row[4] << endl;
-                    cout << "¿Î³ÌÑ§ÆÚ£º" << row[5] << endl;
-                    cout << "¿Î³Ì×î´óÈËÊý£º" << row[6] << endl;
+                    cout << "è¯¾ç¨‹ç¼–å·ï¼š" << row[0] << endl;
+                    cout << "è¯¾ç¨‹åç§°ï¼š" << row[1] << endl;
+                    cout << "è¯¾ç¨‹å±žæ€§ï¼š" << row[2] << endl;
+                    cout << "è¯¾ç¨‹å­¦æ—¶ï¼š" << row[3] << endl;
+                    cout << "è¯¾ç¨‹å­¦åˆ†ï¼š" << row[4] << endl;
+                    cout << "è¯¾ç¨‹å­¦æœŸï¼š" << row[5] << endl;
+                    cout << "è¯¾ç¨‹æœ€å¤§äººæ•°ï¼š" << row[6] << endl;
                     cout << endl;
                 }
                 mysql_free_result(res);
             }
             else {
-                cout << "²éÑ¯½á¹ûÎª¿Õ" << endl;
+                cout << "æŸ¥è¯¢ç»“æžœä¸ºç©º" << endl;
             }
         }
         else {
-            cout << "²éÑ¯Ê§°Ü£º" << mysql_error(mysql) << endl; 
+            cout << "æŸ¥è¯¢å¤±è´¥ï¼š" << mysql_error(mysql) << endl; 
         }
     }
 }
@@ -279,24 +279,24 @@ void MANAGER::showall_student() {
             res = mysql_store_result(mysql);
             if (res) {
                 while (MYSQL_ROW row = mysql_fetch_row(res)) {
-                    cout << "Ñ§ÉúÑ§ºÅ£º" << row[0] << endl;
-                    cout << "Ñ§ÉúÐÕÃû£º" << row[1] << endl;
-                    cout << "Ñ§ÉúÐÔ±ð£º" << row[2] << endl;
-                    cout << "Ñ§Éú°à¼¶£º" << row[3] << endl;
-                    cout << "Ñ§ÉúÊÖ»úºÅÂë£º" << row[4] << endl;
-                    cout << "Ñ§ÉúÄêÁä£º" << row[5] << endl;
-                    cout << "Ñ§ÉúËùÔÚÏµ£º" << row[6] << endl;
-                    cout << "Ñ§ÉúÃÜÂë£º" << row[6] << endl;
+                    cout << "å­¦ç”Ÿå­¦å·ï¼š" << row[0] << endl;
+                    cout << "å­¦ç”Ÿå§“åï¼š" << row[1] << endl;
+                    cout << "å­¦ç”Ÿæ€§åˆ«ï¼š" << row[2] << endl;
+                    cout << "å­¦ç”Ÿç­çº§ï¼š" << row[3] << endl;
+                    cout << "å­¦ç”Ÿæ‰‹æœºå·ç ï¼š" << row[4] << endl;
+                    cout << "å­¦ç”Ÿå¹´é¾„ï¼š" << row[5] << endl;
+                    cout << "å­¦ç”Ÿæ‰€åœ¨ç³»ï¼š" << row[6] << endl;
+                    cout << "å­¦ç”Ÿå¯†ç ï¼š" << row[6] << endl;
                     cout << endl;
                 }
                 mysql_free_result(res);
             }
             else {
-                cout << "²éÑ¯½á¹ûÎª¿Õ" << endl;
+                cout << "æŸ¥è¯¢ç»“æžœä¸ºç©º" << endl;
             }
         }
         else {
-            cout << "²éÑ¯Ê§°Ü£º" << mysql_error(mysql) << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥ï¼š" << mysql_error(mysql) << endl;
         }
     }
 }
@@ -307,12 +307,12 @@ void MANAGER::change_student() {
     string changed_str;
     int changed_int;
 
-    cout << "ÇëÊäÈëÄúÒªÐÞ¸ÄÑ§ÉúµÄÑ§ºÅ£º";
+    cout << "è¯·è¾“å…¥æ‚¨è¦ä¿®æ”¹å­¦ç”Ÿçš„å­¦å·ï¼š";
     cin >> s_id;
-    cout << "ÇëÊäÈëÄúÒªÐÞ¸ÄµÄ×Ö¶ÎÃû£º";
+    cout << "è¯·è¾“å…¥æ‚¨è¦ä¿®æ”¹çš„å­—æ®µåï¼š";
     cin >> changeconnect;
 
-    cout << "ÇëÊäÈëÄúÏ£Íû½«ÆäÐÞ¸ÄÎª£¨Èç¹ûÊÇÕûÊý£¬ÇëÊäÈëÕûÊý£»Èç¹ûÊÇ×Ö·û´®£¬ÇëÊäÈë×Ö·û´®£©£º";
+    cout << "è¯·è¾“å…¥æ‚¨å¸Œæœ›å°†å…¶ä¿®æ”¹ä¸ºï¼ˆå¦‚æžœæ˜¯æ•´æ•°ï¼Œè¯·è¾“å…¥æ•´æ•°ï¼›å¦‚æžœæ˜¯å­—ç¬¦ä¸²ï¼Œè¯·è¾“å…¥å­—ç¬¦ä¸²ï¼‰ï¼š";
     if (is_integer_input(changeconnect)) { 
         cin >> changed_int;
     }
@@ -336,15 +336,15 @@ void MANAGER::change_student() {
 
  
         if (mysql_query(mysql, update_query.c_str())) {
-            cout << "¸üÐÂÊ§°Ü: " << mysql_error(mysql) << endl;
+            cout << "æ›´æ–°å¤±è´¥: " << mysql_error(mysql) << endl;
         }
         else {
-            cout << "¼ÇÂ¼ÒÑ³É¹¦¸üÐÂ£¡" << endl;
+            cout << "è®°å½•å·²æˆåŠŸæ›´æ–°ï¼" << endl;
         }
     }
 }
 bool MANAGER::is_integer_input(const string& input) {
-    return input == "age" || input == "grade";
+    return input == "s_age" || input == "s_id";
 }
 
 void MANAGER::change_course() {
@@ -353,12 +353,12 @@ void MANAGER::change_course() {
     string changed_str;
     int changed_int;
 
-    cout << "ÇëÊäÈëÄúÒªÐÞ¸Ä¿Î³ÌµÄÑ§ºÅ£º";
+    cout << "è¯·è¾“å…¥æ‚¨è¦ä¿®æ”¹è¯¾ç¨‹çš„å­¦å·ï¼š";
     cin >> c_id;
-    cout << "ÇëÊäÈëÄúÒªÐÞ¸ÄµÄ×Ö¶ÎÃû£º";
+    cout << "è¯·è¾“å…¥æ‚¨è¦ä¿®æ”¹çš„å­—æ®µåï¼š";
     cin >> changeconnect;
 
-    cout << "ÇëÊäÈëÄúÏ£Íû½«ÆäÐÞ¸ÄÎª£¨Èç¹ûÊÇÕûÊý£¬ÇëÊäÈëÕûÊý£»Èç¹ûÊÇ×Ö·û´®£¬ÇëÊäÈë×Ö·û´®£©£º";
+    cout << "è¯·è¾“å…¥æ‚¨å¸Œæœ›å°†å…¶ä¿®æ”¹ä¸ºï¼ˆå¦‚æžœæ˜¯æ•´æ•°ï¼Œè¯·è¾“å…¥æ•´æ•°ï¼›å¦‚æžœæ˜¯å­—ç¬¦ä¸²ï¼Œè¯·è¾“å…¥å­—ç¬¦ä¸²ï¼‰ï¼š";
     if (is_integer_input(changeconnect)) {
         cin >> changed_int;
     }
@@ -382,17 +382,17 @@ void MANAGER::change_course() {
 
 
         if (mysql_query(mysql, update_query.c_str())) {
-            cout << "¸üÐÂÊ§°Ü: " << mysql_error(mysql) << endl;
+            cout << "æ›´æ–°å¤±è´¥: " << mysql_error(mysql) << endl;
         }
         else {
-            cout << "¼ÇÂ¼ÒÑ³É¹¦¸üÐÂ£¡" << endl;
+            cout << "è®°å½•å·²æˆåŠŸæ›´æ–°ï¼" << endl;
         }
     }
 }
 
 void MANAGER::delete_student() {
     int s_id;
-    cout << "ÇëÊäÈëÄúÏ£ÍûÉ¾³ýµÄÑ§Éú¼ÇÂ¼µÄÑ§ºÅ£º";
+    cout << "è¯·è¾“å…¥æ‚¨å¸Œæœ›åˆ é™¤çš„å­¦ç”Ÿè®°å½•çš„å­¦å·ï¼š";
     cin >> s_id;
 
     MYSQL_CONN mysql_conn;
@@ -401,13 +401,13 @@ void MANAGER::delete_student() {
 
         string check_query = "SELECT * FROM STUDENT WHERE s_id = " + to_string(s_id);
         if (mysql_query(mysql, check_query.c_str())) {
-            cout << "²éÑ¯Ê§°Ü: " << mysql_error(mysql) << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥: " << mysql_error(mysql) << endl;
             return;
         }
 
         MYSQL_RES* result = mysql_store_result(mysql);
         if (result == nullptr || mysql_num_rows(result) == 0) {
-            cout << "¼ÇÂ¼Îª¿Õ£¡" << endl;
+            cout << "è®°å½•ä¸ºç©ºï¼" << endl;
             mysql_free_result(result);
             return;
         }
@@ -419,16 +419,16 @@ void MANAGER::delete_student() {
 
 
         if (mysql_query(mysql, delete_query.c_str())) {
-            cout << "É¾³ýÊ§°Ü: " << mysql_error(mysql) << endl;
+            cout << "åˆ é™¤å¤±è´¥: " << mysql_error(mysql) << endl;
         }
         else {
-            cout << "¼ÇÂ¼ÒÑ³É¹¦É¾³ý£¡" << endl;
+            cout << "è®°å½•å·²æˆåŠŸåˆ é™¤ï¼" << endl;
         }
     }
 }
 void MANAGER::delete_course() {
     int c_id;
-    cout << "ÇëÊäÈëÄúÏ£ÍûÉ¾³ýµÄ¿Î³Ì¼ÇÂ¼µÄ¿Î³ÌºÅ£º";
+    cout << "è¯·è¾“å…¥æ‚¨å¸Œæœ›åˆ é™¤çš„è¯¾ç¨‹è®°å½•çš„è¯¾ç¨‹å·ï¼š";
     cin >> c_id;
 
     MYSQL_CONN mysql_conn;
@@ -437,13 +437,13 @@ void MANAGER::delete_course() {
 
         string check_query = "SELECT * FROM COURSE WHERE c_id = " + to_string(c_id);
         if (mysql_query(mysql, check_query.c_str())) {
-            cout << "²éÑ¯Ê§°Ü: " << mysql_error(mysql) << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥: " << mysql_error(mysql) << endl;
             return;
         }
 
         MYSQL_RES* result = mysql_store_result(mysql);
         if (result == nullptr || mysql_num_rows(result) == 0) {
-            cout << "¼ÇÂ¼Îª¿Õ£¡" << endl;
+            cout << "è®°å½•ä¸ºç©ºï¼" << endl;
             mysql_free_result(result);
             return;
         }
@@ -455,10 +455,10 @@ void MANAGER::delete_course() {
 
 
         if (mysql_query(mysql, delete_query.c_str())) {
-            cout << "É¾³ýÊ§°Ü: " << mysql_error(mysql) << endl;
+            cout << "åˆ é™¤å¤±è´¥: " << mysql_error(mysql) << endl;
         }
         else {
-            cout << "¼ÇÂ¼ÒÑ³É¹¦É¾³ý£¡" << endl;
+            cout << "è®°å½•å·²æˆåŠŸåˆ é™¤ï¼" << endl;
         }
     }
 }
@@ -469,7 +469,7 @@ void MANAGER::count_students() {
 
         string count_query = "SELECT COUNT(*) FROM STUDENT";
         if (mysql_query(mysql, count_query.c_str())) {
-            cout << "²éÑ¯Ê§°Ü: " << mysql_error(mysql) << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥: " << mysql_error(mysql) << endl;
             return;
         }
 
@@ -478,7 +478,7 @@ void MANAGER::count_students() {
         int count = stoi(row[0]); 
         mysql_free_result(result);
 
-        cout << "Ñ§ÉúÈËÊý£º" << count << endl;
+        cout << "å­¦ç”Ÿäººæ•°ï¼š" << count << endl;
     }
 }
 
@@ -490,7 +490,7 @@ void MANAGER::count_courses() {
 
         string count_query = "SELECT COUNT(*) FROM COURSE";
         if (mysql_query(mysql, count_query.c_str())) {
-            cout << "²éÑ¯Ê§°Ü: " << mysql_error(mysql) << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥: " << mysql_error(mysql) << endl;
             return;
         }
 
@@ -499,14 +499,14 @@ void MANAGER::count_courses() {
         int count = stoi(row[0]); 
         mysql_free_result(result);
 
-        cout << "¿Î³ÌµÄÃÅÊý£º" << count << endl;
+        cout << "è¯¾ç¨‹çš„é—¨æ•°ï¼š" << count << endl;
     }
 }
 
 
 void MANAGER::count_students_for_course() {
     string c_id;
-    cout << "ÇëÊäÈë¿Î³ÌºÅ£º";
+    cout << "è¯·è¾“å…¥è¯¾ç¨‹å·ï¼š";
     cin >> c_id;
     MYSQL_CONN mysql_conn;
     if (mysql_conn.connect()) {
@@ -514,7 +514,7 @@ void MANAGER::count_students_for_course() {
 
         string count_query = "SELECT * FROM STUDENT_COURSE WHERE c_id = '" + c_id + "'";
         if (mysql_query(mysql, count_query.c_str())) {
-            cout << "²éÑ¯Ê§°Ü: " << mysql_error(mysql) << endl;
+            cout << "æŸ¥è¯¢å¤±è´¥: " << mysql_error(mysql) << endl;
             return;
         }
 
@@ -522,7 +522,7 @@ void MANAGER::count_students_for_course() {
         int num_fields = mysql_num_fields(result);
         MYSQL_ROW row;
 
-        cout << "Ñ¡ÐÞ¿Î³Ì \"" << c_id << "\" µÄÑ§ÉúÑ§ºÅ£º" << endl;
+        cout << "é€‰ä¿®è¯¾ç¨‹ \"" << c_id << "\" çš„å­¦ç”Ÿå­¦å·ï¼š" << endl;
         while ((row = mysql_fetch_row(result))) {
                 cout << row[0] << " ";
         }
