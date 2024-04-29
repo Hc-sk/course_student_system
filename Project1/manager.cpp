@@ -344,7 +344,7 @@ void MANAGER::change_student() {
     }
 }
 bool MANAGER::is_integer_input(const string& input) {
-    return input == "s_age" || input == "s_id";
+    return input == "s_age" || input == "s_id"||input=="c_id"||input=="c_hours"||input=="c_credit"||input=="c_term"||input=="c_nums";
 }
 
 void MANAGER::change_course() {
@@ -353,7 +353,7 @@ void MANAGER::change_course() {
     string changed_str;
     int changed_int;
 
-    cout << "请输入您要修改课程的学号：";
+    cout << "请输入您要修改课程的课程号：";
     cin >> c_id;
     cout << "请输入您要修改的字段名：";
     cin >> changeconnect;
